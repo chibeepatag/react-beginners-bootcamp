@@ -16,8 +16,21 @@ class FlipApp extends React.Component {
 
   state = {
     score: 0,
-    flipResult: 'Heads',
-    guessed: 'Heads',
+    flipResult: null,
+    guessed: '',
+  }
+
+  guess(guessed) {
+    const flipResult = Math.random() > 0.5 ? 'Heads' : 'Tails'
+    this.setState({
+      guessed,
+      flipResult,
+      score: guessed === flipResult ? this.state.score + 1 : this.state.score - 1,
+    })
+  }
+
+  reset() {
+    this.setState({ score: 0, flipResult: null, guessed: '' })
   }
 
   renderOutput() {
@@ -39,13 +52,13 @@ class FlipApp extends React.Component {
             <h3>Controls</h3>
             <div className="row">
               <div className="col-md-4">
-                <button className="btn btn-primary btn-block">Heads</button>
+                <button className="btn btn-primary btn-block" onClick={() => this.guess('Heads')}>Heads</button>
               </div>
               <div className="col-md-4">
-                <button className="btn btn-primary btn-block">Tails</button>
+                <button className="btn btn-primary btn-block" onClick={() => this.guess('Tails')}>Tails</button>
               </div>
               <div className="col-md-4">
-                <button className="btn btn-default btn-block">Reset</button>
+                <button className="btn btn-default btn-block" onClick={() => this.reset()}>Reset</button>
               </div>
             </div>
           </div>
