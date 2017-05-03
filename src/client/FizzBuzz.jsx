@@ -19,13 +19,14 @@ class FizzBuzz extends React.Component {
 
   hitMe(){
   const result = []
-  for (let i = this.state.startingNumber; i <= this.state.endingNumber; i += 1) {
-    if (i % this.state.divisibleNumber1 === 0 && i % this.state.divisibleNumber2 === 0) {
-      result.push(this.state.divisibleWord1 + this.state.divisibleWord2)
-    } else if (i % this.state.divisibleNumber1 === 0) {
-      result.push(this.state.divisibleWord1)
-    } else if (i % this.state.divisibleNumber2 === 0) {
-      result.push(this.state.divisibleWord2)
+  const { startingNumber, endingNumber, divisibleNumber1, divisibleNumber2, divisibleWord1, divisibleWord2 } = this.state
+  for (let i = startingNumber; i <= endingNumber; i += 1) {
+    if (i % divisibleNumber1 === 0 && i % divisibleNumber2 === 0) {
+      result.push(divisibleWord1 + divisibleWord2)
+    } else if (i % divisibleNumber1 === 0) {
+      result.push(divisibleWord1)
+    } else if (i % divisibleNumber2 === 0) {
+      result.push(divisibleWord2)
     } else {
       result.push(i)
     }
