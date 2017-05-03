@@ -10,6 +10,33 @@ class FizzBuzz extends React.Component {
     divisibleWord2: 'Buzz',
     result: [],
   }
+
+  reset(){
+    this.setState({
+      result: [],
+    });
+  }
+
+  hitMe(){
+  const result = []
+  for (let i = this.state.startingNumber; i <= this.state.endingNumber; i += 1) {
+    if (i % this.state.divisibleNumber1 === 0 && i % this.state.divisibleNumber2 === 0) {
+      result.push(this.state.divisibleWord1 + this.state.divisibleWord2)
+    } else if (i % this.state.divisibleNumber1 === 0) {
+      result.push(this.state.divisibleWord1)
+    } else if (i % this.state.divisibleNumber2 === 0) {
+      result.push(this.state.divisibleWord2)
+    } else {
+      result.push(i)
+    }
+  }
+  this.setState({ result })
+  }
+
+  renderOutput(){
+    return this.state.result.map((result, idx) => <div key={idx}>{result}</div>)
+  }
+
   render() {
     return (
       <div className="container app-container">
@@ -105,31 +132,17 @@ class FizzBuzz extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-6">
-                <button className="btn btn-primary btn-block">Hit me!</button>
+                <button className="btn btn-primary btn-block" onClick={() => this.hitMe()}>Hit me!</button>
               </div>
               <div className="col-md-6">
-                <button className="btn btn-default btn-block">Reset</button>
+                <button className="btn btn-default btn-block" onClick={() => this.reset()}>Reset</button>
               </div>
             </div>
           </div>
           <div className="col-md-2 col-md-offset-2">
             <h3>Output</h3>
-            <div className="well">
-              <div>1</div>
-              <div>2</div>
-              <div>Fizz</div>
-              <div>4</div>
-              <div>Buzz</div>
-              <div>Fizz</div>
-              <div>7</div>
-              <div>8</div>
-              <div>Fizz</div>
-              <div>Buzz</div>
-              <div>11</div>
-              <div>Fizz</div>
-              <div>13</div>
-              <div>14</div>
-              <div>FizzBuzz</div>
+             <div className="well">
+            {this.renderOutput()}
             </div>
           </div>
         </div>
