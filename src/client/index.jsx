@@ -1,14 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import FlipApp from './Flip'
 import GuessNumber from './GuessNumber'
 import FizzBuzz from './FizzBuzz'
 import Auth from './Auth'
 import Series from './Series'
-
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 const render = (AppComponent, appName) => {
   ReactDOM.render(
