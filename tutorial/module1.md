@@ -207,7 +207,7 @@ make a change in each file and see the updates in the browser without refreshing
 
 The steps for each app are:
 1. delete `ReactDOM.render(...)`
-2. add `renderApp(...)`
+2. add `render(...)`
 3. inside the `if (module.hot)` block, add the funky accept thingie:
 ```diff
 if (module.hot) {
