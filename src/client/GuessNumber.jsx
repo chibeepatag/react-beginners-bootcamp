@@ -16,6 +16,19 @@ class GuessNumber extends React.Component {
     number: 73,
   }
 
+  renderOutput() {
+    if (!this.state.guessed) {
+      return null
+    }
+    if (this.state.guessed === this.state.number) {
+      return <div style={styles.success}>Success! The number is {this.state.number}</div>
+    }
+    if (this.state.guessed < this.state.number) {
+      return <div style={styles.failure}>Too low!</div>
+    }
+    return <div style={styles.failure}>Too high!</div>
+  }
+
   render() {
     return (
       <div className="container app-container">
@@ -35,15 +48,14 @@ class GuessNumber extends React.Component {
                 max={100}
               />
               <span className="input-group-btn">
-                <button className="btn btn-primary">Guess</button>
+                <button className="btn btn-primary" onClick={() => this.setState({ guessed: this.state.guessInput })}>Guess</button>
               </span>
             </div>
+            <h4><strong>guessInput</strong>: {this.state.guessInput}</h4>
           </div>
           <div className="col-md-2 col-md-offset-2">
             <h3>Output</h3>
-            <div className="well">
-              <div style={styles.success}>Success! The number is {this.state.number}</div>
-            </div>
+            {this.renderOutput()}
           </div>
         </div>
       </div>
