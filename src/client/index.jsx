@@ -8,6 +8,8 @@ import FizzBuzz from './FizzBuzz'
 import Auth from './Auth'
 import Series from './Series'
 
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 const render = (AppComponent, appName) => {
   ReactDOM.render(
     <AppContainer>
@@ -45,8 +47,8 @@ if (module.hot) {
 }
 
 
-render(FlipApp, 'flip');
-render(GuessNumber, 'guessnumber');
-render(FizzBuzz, 'fizzbuzz');
-render(Auth, 'auth');
-render(Series, 'series');
+render(FlipApp, 'flip')
+render(GuessNumber, 'guessnumber')
+render(FizzBuzz, 'fizzbuzz')
+render(Auth, 'auth')
+render(Series, 'series')
