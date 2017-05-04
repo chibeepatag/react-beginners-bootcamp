@@ -4,7 +4,7 @@ import React from 'react'
 
 import App from './App'
 
-class Auth extends React.Component {
+class AuthApp extends React.Component {
   state = {
     emailInput: '',
     nameInput: '',
@@ -35,7 +35,7 @@ class Auth extends React.Component {
   render() {
     return (
       <App
-        appName="Auth (using App)"
+        title="Auth (Reusable)"
         controls={
           <div>
             <div className="row">
@@ -86,4 +86,4 @@ class Auth extends React.Component {
   }
 }
 
-export default Auth
+export default AuthApp

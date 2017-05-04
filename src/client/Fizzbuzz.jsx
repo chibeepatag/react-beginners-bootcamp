@@ -4,7 +4,9 @@ import React from 'react'
 
 import App from './App'
 
-class Fizzbuzz extends React.Component {
+
+class FizzbuzzApp extends React.Component {
+
   state = {
     startingNumber: 1,
     endingNumber: 15,
@@ -47,7 +49,7 @@ class Fizzbuzz extends React.Component {
       divisibleWord2, divisibleNumber2 } = this.state
     return (
       <App
-        appName="Fizzbuzz (using App)"
+        title="Fizz Buzz (Reusable)"
         controls={
           <div>
             <div className="row">
@@ -152,4 +154,4 @@ class Fizzbuzz extends React.Component {
   }
 }
 
-export default Fizzbuzz
+export default FizzbuzzApp
