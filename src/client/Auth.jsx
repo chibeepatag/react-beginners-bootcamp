@@ -1,61 +1,87 @@
+// @flow
+
 import React from 'react'
+
+import App from './App'
 
 class Auth extends React.Component {
   state = {
-    nameInput: '',
     emailInput: '',
+    nameInput: '',
     passwordInput: '',
-    name: '',
     role: 'guest',
+    name: '',
+  }
+
+  login() {
+    this.setState({ role: 'user', name: this.state.nameInput })
+  }
+
+  signup() {
+    this.setState({ role: 'newUser', name: this.state.nameInput })
   }
 
   renderOutput() {
-    if (this.state.role === 'guest') {
-      return <div>Hi stranger</div>
+    const { role, name } = this.state
+    if (role === 'guest') {
+      return <div>Hello, guest</div>
     }
-    if (this.state.role === 'newUser') {
-      return <div>Welcome aboard {this.state.name}!</div>
+    if (role === 'user') {
+      return <div>Welcome back {name}!</div>
     }
-    return <div>Welcome back {this.state.name}!</div>
+    return <div>Welcome aboard, {name}!</div>
   }
 
   render() {
     return (
-      <div className="container app-container">
-        <h2>Auth app!</h2>
-        <div className="row">
-          <div className="col-md-4">
-            <h3>Controls</h3>
+      <App
+        appName="Auth (using App)"
+        controls={
+          <div>
             <div className="row">
               <div className="col-md-12 form-group">
-                <input placeholder="Name" value={this.state.nameInput} className="form-control" />
+                <input
+                  placeholder="Name"
+                  className="form-control"
+                  value={this.state.nameInput}
+                  onChange={evt => this.setState({ nameInput: evt.target.value })}
+                />
               </div>
             </div>
             <div className="row">
               <div className="col-md-12 form-group">
-                <input type="email" placeholder="Email" value={this.state.emailInput} className="form-control" />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="form-control"
+                  value={this.state.emailInput}
+                  onChange={evt => this.setState({ emailInput: evt.target.value })}
+                />
               </div>
             </div>
             <div className="row">
               <div className="col-md-12 form-group">
-                <input type="password" placeholder="Password" value={this.state.passwordInput} className="form-control" />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  className="form-control"
+                  value={this.state.passwordInput}
+                  onChange={evt => this.setState({ passwordInput: evt.target.value })}
+                />
               </div>
             </div>
             <div className="row">
               <div className="col-md-6">
-                <button className="btn btn-primary btn-block">Signup</button>
+                <button className="btn btn-primary btn-block" onClick={() => this.signup()}>Signup</button>
               </div>
               <div className="col-md-6">
-                <button className="btn btn-default btn-block">Login</button>
+                <button className="btn btn-default btn-block" onClick={() => this.login()}>Login</button>
               </div>
             </div>
           </div>
-          <div className="col-md-2 col-md-offset-2">
-            <h3>Output</h3>
-            {this.renderOutput()}
-          </div>
-        </div>
-      </div>
+        }
+        output={this.renderOutput()}
+      />
     )
   }
 }

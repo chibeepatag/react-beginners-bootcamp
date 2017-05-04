@@ -4,10 +4,10 @@ import { AppContainer } from 'react-hot-loader'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import FlipApp from './Flip'
-import GuessNumber from './GuessNumber'
-import FizzBuzz from './FizzBuzz'
-import Auth from './Auth'
-import Series from './Series'
+import GuessnumberApp from './Guessnumber'
+import FizzbuzzApp from './Fizzbuzz'
+import AuthApp from './Auth'
+import SeriesApp from './Series'
 
 const render = (AppComponent, appName) => {
   ReactDOM.render(
@@ -16,6 +16,7 @@ const render = (AppComponent, appName) => {
     </AppContainer>,
     document.getElementById(`${appName}-app`),
     )
+
 }
 
 if (module.hot) {
@@ -24,30 +25,29 @@ if (module.hot) {
     render(NextFlipApp, 'flip')
   })
 
-  module.hot.accept('./GuessNumber', () => {
-    const NextGuessNumber = require('./GuessNumber').default // eslint-disable-line global-require
-    render(NextGuessNumber, 'guessnumber')
+  module.hot.accept('./Guessnumber', () => {
+    const NextGuessnumberApp = require('./Guessnumber').default // eslint-disable-line global-require
+    render(NextGuessnumberApp, 'guessnumber')
   })
 
-  module.hot.accept('./FizzBuzz', () => {
-    const NextFizzBuzz = require('./FizzBuzz').default // eslint-disable-line global-require
-    render(NextFizzBuzz, 'fizzbuzz')
+  module.hot.accept('./Fizzbuzz', () => {
+    const NextFizzbuzzApp = require('./Fizzbuzz').default // eslint-disable-line global-require
+    render(NextFizzbuzzApp, 'fizzbuzz')
   })
 
   module.hot.accept('./Auth', () => {
-    const NextAuth = require('./Auth').default // eslint-disable-line global-require
-    render(NextAuth, 'auth')
+    const NextAuthApp = require('./Auth').default // eslint-disable-line global-require
+    render(NextAuthApp, 'auth')
   })
 
   module.hot.accept('./Series', () => {
-    const NextSeries = require('./Series').default // eslint-disable-line global-require
-    render(NextSeries, 'series')
+    const NextSeriesApp = require('./Series').default // eslint-disable-line global-require
+    render(NextSeriesApp, 'series')
   })
 }
 
-
 render(FlipApp, 'flip')
-render(GuessNumber, 'guessnumber')
-render(FizzBuzz, 'fizzbuzz')
-render(Auth, 'auth')
-render(Series, 'series')
+render(GuessnumberApp, 'guessnumber')
+render(FizzbuzzApp, 'fizzbuzz')
+render(AuthApp, 'auth')
+render(SeriesApp, 'series')

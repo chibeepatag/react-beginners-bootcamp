@@ -1,6 +1,18 @@
 import React from 'react'
 
-class Series extends React.Component {
+// const styles = {
+//   autocomplete: {
+//     width: '100%',
+//     border: '1px solid #eee',
+//     borderRadius: 4,
+//   },
+//   autocompleteRow: {
+//     padding: 5,
+//   },
+// }
+
+class SeriesApp extends React.Component {
+
   state = {
     query: '',
     selected: [],
@@ -26,4 +38,5 @@ class Series extends React.Component {
     )
   }
 }
-export default Series
+
+export default SeriesApp

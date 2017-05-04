@@ -1,5 +1,7 @@
 import React from 'react'
 
+import App from './App'
+
 const styles = {
   score: {
     color: 'green',
@@ -31,48 +33,48 @@ class FlipApp extends React.Component {
   }
 
   reset() {
-    this.setState({ score: 0, flipResult: null, guessed: '' })
+    this.setState({
+      score: 0,
+      guessed: '',
+      flipResult: '',
+    })
   }
 
   renderOutput() {
-    const { flipResult, guessed } = this.state
-    if (!flipResult) {
+    const { guessed, flipResult } = this.state
+    if (!guessed) {
       return null
     }
-    if (flipResult === guessed) {
-      return <div style={styles.success}>{flipResult}: you win!</div>
+    if (guessed === flipResult) {
+      return <p style={styles.success}>Horray! {guessed}</p>
     }
-    return <div style={styles.failure}>{flipResult}: you lose!</div>
+    return <p style={styles.failure}>Boohoo! {guessed}</p>
   }
 
   render() {
     return (
-      <div className="container app-container">
-        <h2>Flip</h2>
-        <div className="row">
-          <div className="col-md-4">
-            <h3>Controls</h3>
-            <div className="row">
-              <div className="col-md-4">
-                <button className="btn btn-primary btn-block" onClick={() => this.guess('Heads')}>Heads</button>
-              </div>
-              <div className="col-md-4">
-                <button className="btn btn-primary btn-block" onClick={() => this.guess('Tails')}>Tails</button>
-              </div>
-              <div className="col-md-4">
-                <button className="btn btn-default btn-block" onClick={() => this.reset()}>Reset</button>
-              </div>
+      <App
+        title="Flip (Reusable)"
+        controls={
+          <div className="row">
+            <div className="col-md-4">
+              <button className="btn btn-primary btn-block" onClick={() => this.guess('Heads')}>Heads</button>
+            </div>
+            <div className="col-md-4">
+              <button className="btn btn-primary btn-block" onClick={() => this.guess('Tails')}>Tails</button>
+            </div>
+            <div className="col-md-4">
+              <button className="btn btn-default btn-block" onClick={() => this.reset()}>Reset</button>
             </div>
           </div>
-          <div className="col-md-2 col-md-offset-2">
-            <h3>Output</h3>
-            <div className="well">
-              <span style={styles.score}>Score: <strong>{this.state.score}</strong></span>
-              { this.renderOutput() }
-            </div>
+        }
+        output={
+          <div>
+            <span style={styles.score}>Score: <strong>{this.state.score}</strong></span>
+            {this.renderOutput()}
           </div>
-        </div>
-      </div>
+        }
+      />
     )
   }
 }
