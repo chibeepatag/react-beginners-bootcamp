@@ -1,14 +1,20 @@
 // @flow
 
 import React from 'react'
+import { connect } from 'react-redux'
 
 type Props = {
-  flipScore: number
+  score: number
 }
 
-const Score = ({ flipScore }: Props) =>
+const Score = (props: Props) =>
   <div>
-    <p><strong>Flip Score:</strong> {flipScore}</p>
+    <p><strong>Flip Score:</strong> {props.score}</p>
   </div>
 
-export default Score
+
+const mapStateToProps = state => ({
+  score: state.flipScore,
+})
+
+export default connect(mapStateToProps)(Score)
