@@ -19,21 +19,21 @@ const styles = {
 class Guessnumber extends React.Component {
 
   props: {
-    guessed: number,
+    guessInput: number,
     number: number,
     guessInput: ?any,
     onGuessnumberInputChange: Function,
   }
 
   renderOutput() {
-    const { guessed, number } = this.props
-    if (!guessed) {
+    const { guessInput, number } = this.props
+    if (!guessInput) {
       return null
     }
-    if (guessed === number) {
-      return <div style={styles.success}>[{guessed}]: Bullseye!</div>
+    if (guessInput === number) {
+      return <div style={styles.success}>[{guessInput}]: Bullseye!</div>
     }
-    return <div style={styles.failure}>[{guessed}]: Too {guessed > number ? 'High' : 'Low'}...</div>
+    return <div style={styles.failure}>[{guessInput}]: Too {guessInput > number ? 'High' : 'Low'}...</div>
   }
 
   render() {
@@ -52,7 +52,7 @@ class Guessnumber extends React.Component {
               max={100}
             />
             <span className="input-group-btn">
-              <button className="btn btn-primary" onClick={() => this.guess()}>Guess</button>
+              <button className="btn btn-primary" onClick={() => console.log('guess clicked')}>Guess</button>
             </span>
           </div>
         }
