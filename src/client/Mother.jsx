@@ -31,12 +31,12 @@ class Mother extends React.Component {
   }
 
   render() {
-    const { role, name, flipScore } = this.state
+    const { role, name } = this.state
     return (
       <div>
         <Nav role={role} name={name} />
         <Switch>
-          <Route path="/flip" render={() => <Flip score={flipScore} onScoreChange={this.onScoreChange} />} />
+          <Route path="/flip" render={() => <Flip onScoreChange={this.onScoreChange} />} />
           <Route path="/guessnumber" component={Guessnumber} />
           <Route path="/fizzbuzz" component={Fizzbuzz} />
           <Route path="/auth" render={() => <Auth onLogin={this.login} onSignup={this.signup} />} />

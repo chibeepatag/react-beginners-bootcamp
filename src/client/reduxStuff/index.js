@@ -39,6 +39,10 @@ export const guessTails = () => ({
   type: 'guessTails',
 })
 
+export const resetFlip = () => ({
+  type: 'resetFlip',
+})
+
 export const guessnumberInputChange = (number: number) => ({
   type: 'guessnumberInputChange',
   payload: number,
@@ -112,6 +116,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         guessnumberGuessInput: action.payload,
+      }
+    }
+
+    case 'resetFlip': {
+      return {
+        ...state,
+        flipScore: 0,
+        flipResult: '',
+        flipGuessed: '',
+        isFlipProcessing: false,
       }
     }
 

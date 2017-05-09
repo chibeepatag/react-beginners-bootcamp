@@ -3,7 +3,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { guessHeads, guessTails } from './reduxStuff'
+import { guessHeads, guessTails, resetFlip } from './reduxStuff'
 import App from './App'
 
 const styles = {
@@ -25,6 +25,7 @@ type Props = {
   isProcessing: boolean,
   onGuessHeads: Function,
   onGuessTails: Function,
+  onReset: Function,
 }
 
 class FlipApp extends React.Component {
@@ -56,7 +57,7 @@ class FlipApp extends React.Component {
                 <button className="btn btn-primary btn-block" onClick={() => this.props.onGuessTails()}>Tails</button>
               </div>
               <div className="col-md-4">
-                <button className="btn btn-default btn-block" onClick={() => this.reset()}>Reset</button>
+                <button className="btn btn-default btn-block" onClick={() => this.props.onReset()}>Reset</button>
               </div>
             </div>
           }
@@ -82,6 +83,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onGuessHeads: () => dispatch(guessHeads()),
   onGuessTails: () => dispatch(guessTails()),
+  onReset: () => dispatch(resetFlip()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FlipApp)

@@ -17,11 +17,11 @@ const App = ({ appName, controls, output }: Props) =>
         {controls}
       </div>
       <div className="col-md-2 col-md-offset-2">
-        <h3>Output</h3>
+
         {
-          output && <div className="well">
+          output && <div><h3>Output</h3><div className="well">
             {output}
-          </div>
+          </div></div>
         }
       </div>
     </div>
