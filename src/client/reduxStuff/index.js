@@ -48,6 +48,37 @@ export const guessnumberInputChange = (number: number) => ({
   payload: number,
 })
 
+export const startingNumberChange = (number: number) => ({
+  type: 'startingNumberChange',
+  payload: number,
+})
+export const endingNumberChange = (number: number) => ({
+  type: 'endingNumberChange',
+  payload: number,
+})
+export const divisibleNumber1Change = (number: number) => ({
+  type: 'divisibleNumber1Change',
+  payload: number,
+})
+export const divisibleWord1Change = (word: string) => ({
+  type: 'divisibleWord1Change',
+  payload: word,
+})
+export const divisibleNumber2Change = (number: number) => ({
+  type: 'divisibleNumber2Change',
+  payload: number,
+})
+export const divisibleWord2Change = (word: string) => ({
+  type: 'divisibleWord2Change',
+  payload: word,
+})
+export const hitme = () => ({
+  type: 'hitme',
+})
+export const fizzBuzzReset = () => ({
+  type: 'fizzbuzzReset',
+})
+
 const randomNum = () => Math.floor(Math.random() * 100) + 1
 
 const initialState = {
@@ -60,7 +91,7 @@ const initialState = {
   guessnumberGuessed: 0,
   guessnumberGuessInput: '',
 
-  fizzbuzzStartingNumber: 1,
+  fizzbuzzStartingNumber: 30,
   fizzbuzzEndingNumber: 15,
   fizzbuzzDivisibleNumber1: 3,
   fizzbuzzDivisibleWord1: 'Fizz',
@@ -126,6 +157,86 @@ const reducer = (state = initialState, action) => {
         flipResult: '',
         flipGuessed: '',
         isFlipProcessing: false,
+      }
+    }
+
+    case 'startingNumberChange': {
+      return {
+        ...state,
+        fizzbuzzStartingNumber: action.payload,
+      }
+    }
+
+    case 'endingNumberChange': {
+      return {
+        ...state,
+        fizzbuzzEndingNumber: action.payload,
+      }
+    }
+
+    case 'divisibleNumber1Change': {
+      return {
+        ...state,
+        fizzbuzzDivisibleNumber1: action.payload,
+      }
+    }
+
+    case 'divisibleWord1Change': {
+      return {
+        ...state,
+        fizzbuzzDivisibleWord1: action.payload,
+      }
+    }
+
+    case 'divisibleNumber2Change': {
+      return {
+        ...state,
+        fizzbuzzDivisibleNumber2: action.payload,
+      }
+    }
+
+    case 'divisibleWord2Change': {
+      return {
+        ...state,
+        fizzbuzzDivisibleWord2: action.payload,
+      }
+    }
+
+    case 'hitme': {
+      const { fizzbuzzStartingNumber,
+              fizzbuzzEndingNumber,
+              fizzbuzzDivisibleWord1,
+              fizzbuzzDivisibleNumber1,
+              fizzbuzzDivisibleWord2,
+              fizzbuzzDivisibleNumber2 } = state
+      const fizzbuzzResult = []
+      for (let i = fizzbuzzStartingNumber; i < fizzbuzzEndingNumber; i += 1) {
+        if (i % fizzbuzzDivisibleNumber1 === 0 && i % fizzbuzzDivisibleNumber2 === 0) {
+          fizzbuzzResult.push(fizzbuzzDivisibleWord1 + fizzbuzzDivisibleWord2)
+        } else if (i % fizzbuzzDivisibleNumber1 === 0) {
+          fizzbuzzResult.push(fizzbuzzDivisibleWord1)
+        } else if (i % fizzbuzzDivisibleNumber2 === 0) {
+          fizzbuzzResult.push(fizzbuzzDivisibleWord2)
+        } else {
+          fizzbuzzResult.push(i)
+        }
+      }
+
+      return {
+        ...state, fizzbuzzResult,
+      }
+    }
+
+    case 'fizzbuzzReset': {
+      return {
+        ...state,
+        fizzbuzzStartingNumber: 1,
+        fizzbuzzEndingNumber: 15,
+        fizzbuzzDivisibleNumber1: 3,
+        fizzbuzzDivisibleWord1: 'Fizz',
+        fizzbuzzDivisibleNumber2: 5,
+        fizzbuzzDivisibleWord2: 'Buzz',
+        fizzbuzzResult: [],
       }
     }
 

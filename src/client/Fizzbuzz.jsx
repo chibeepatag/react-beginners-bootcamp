@@ -1,50 +1,48 @@
 // @flow
 
 import React from 'react'
+import { connect } from 'react-redux'
+import { startingNumberChange,
+         endingNumberChange,
+         divisibleNumber1Change,
+         divisibleWord1Change,
+         divisibleNumber2Change,
+         divisibleWord2Change,
+         hitme,
+         fizzBuzzReset } from './reduxStuff'
 
 import App from './App'
 
+type Props = {
+  startingNumber: number,
+  endingNumber: number,
+  divisibleNumber1: number,
+  divisibleWord1: string,
+  divisibleNumber2: number,
+  divisibleWord2: string,
+  result: [],
+  startingNumberChange: Function,
+  endingNumberChange: Function,
+  divisibleNumber1Change: Function,
+  divisibleWord1Change: Function,
+  divisibleNumber2Change: Function,
+  divisibleWord2Change: Function,
+  onHitme: Function,
+  onReset: Function,
+}
+
 class Fizzbuzz extends React.Component {
-  state = {
-    startingNumber: 1,
-    endingNumber: 15,
-    divisibleNumber1: 3,
-    divisibleWord1: 'Fizz',
-    divisibleNumber2: 5,
-    divisibleWord2: 'Buzz',
-    result: [],
-  }
+  props: Props
 
-  hitme() {
-    const { startingNumber, endingNumber, divisibleWord1, divisibleNumber1,
-      divisibleWord2, divisibleNumber2 } = this.state
-    const result = []
-    for (let i = startingNumber; i < endingNumber; i += 1) {
-      if (i % divisibleNumber1 === 0 && i % divisibleNumber2 === 0) {
-        result.push(divisibleWord1 + divisibleWord2)
-      } else if (i % divisibleNumber1 === 0) {
-        result.push(divisibleWord1)
-      } else if (i % divisibleNumber2 === 0) {
-        result.push(divisibleWord2)
-      } else {
-        result.push(i)
-      }
-    }
-    this.setState({ result })
-  }
-
-  reset() {
-    this.setState({ result: [] })
-  }
 
   renderOutput() {
     // eslint-disable-next-line react/no-array-index-key
-    return this.state.result.map((item, idx) => <div key={idx}>{item}</div>)
+    return this.props.result.map((item, idx) => <div key={idx}>{item}</div>)
   }
 
   render() {
     const { startingNumber, endingNumber, divisibleWord1, divisibleNumber1,
-      divisibleWord2, divisibleNumber2 } = this.state
+      divisibleWord2, divisibleNumber2 } = this.props
     return (
       <App
         appName="Fizzbuzz (using App)"
@@ -60,7 +58,7 @@ class Fizzbuzz extends React.Component {
                     type="number"
                     placeholder="starting number"
                     value={startingNumber}
-                    onChange={evt => this.setState({ startingNumber: Number(evt.target.value) })}
+                    onChange={evt => this.props.startingNumberChange(Number(evt.target.value))}
                     max={10}
                   />
                 </div>
@@ -74,7 +72,7 @@ class Fizzbuzz extends React.Component {
                     type="number"
                     placeholder="ending number"
                     value={endingNumber}
-                    onChange={evt => this.setState({ endingNumber: Number(evt.target.value) })}
+                    onChange={evt => this.props.endingNumberChange(Number(evt.target.value))}
                     max={50}
                   />
                 </div>
@@ -90,7 +88,7 @@ class Fizzbuzz extends React.Component {
                     type="number"
                     placeholder="divisible number #1"
                     value={divisibleNumber1}
-                    onChange={evt => this.setState({ divisibleNumber1: Number(evt.target.value) })}
+                    onChange={evt => this.props.divisibleNumber1Change(Number(evt.target.value))}
                     max={10}
                   />
                 </div>
@@ -103,7 +101,7 @@ class Fizzbuzz extends React.Component {
                     className="form-control"
                     placeholder="divisible word #1"
                     value={divisibleWord1}
-                    onChange={evt => this.setState({ divisibleWord1: evt.target.value })}
+                    onChange={evt => this.props.divisibleWord1Change(evt.target.value)}
                   />
                 </div>
               </div>
@@ -118,7 +116,7 @@ class Fizzbuzz extends React.Component {
                     type="number"
                     placeholder="divisible number #2"
                     value={divisibleNumber2}
-                    onChange={evt => this.setState({ divisibleNumber2: Number(evt.target.value) })}
+                    onChange={evt => this.props.divisibleNumber2Change(Number(evt.target.value))}
                     max={20}
                   />
                 </div>
@@ -131,17 +129,17 @@ class Fizzbuzz extends React.Component {
                     className="form-control"
                     placeholder="divisible word #2"
                     value={divisibleWord2}
-                    onChange={evt => this.setState({ divisibleWord2: evt.target.value })}
+                    onChange={evt => this.props.divisibleWord2Change(evt.target.value)}
                   />
                 </div>
               </div>
             </div>
             <div className="row">
               <div className="col-md-6">
-                <button className="btn btn-primary btn-block" onClick={() => this.hitme()}>Hit me!</button>
+                <button className="btn btn-primary btn-block" onClick={() => this.props.onHitme()}>Hit me!</button>
               </div>
               <div className="col-md-6">
-                <button className="btn btn-default btn-block" onClick={() => this.reset()}>Reset</button>
+                <button className="btn btn-default btn-block" onClick={() => this.props.onReset()}>Reset</button>
               </div>
             </div>
           </div>
@@ -152,4 +150,25 @@ class Fizzbuzz extends React.Component {
   }
 }
 
-export default Fizzbuzz
+const mapStateToProps = state => ({
+  startingNumber: state.fizzbuzzStartingNumber,
+  endingNumber: state.fizzbuzzEndingNumber,
+  divisibleNumber1: state.fizzbuzzDivisibleNumber1,
+  divisibleWord1: state.fizzbuzzDivisibleWord1,
+  divisibleNumber2: state.fizzbuzzDivisibleNumber2,
+  divisibleWord2: state.fizzbuzzDivisibleWord2,
+  result: state.fizzbuzzResult,
+})
+
+const mapDispatchToProps = dispatch => ({
+  onHitme: () => dispatch(hitme()),
+  onReset: () => dispatch(fizzBuzzReset()),
+  startingNumberChange: (number: number) => dispatch(startingNumberChange(number)),
+  endingNumberChange: (number: number) => dispatch(endingNumberChange(number)),
+  divisibleNumber1Change: (number: number) => dispatch(divisibleNumber1Change(number)),
+  divisibleWord1Change: (word: string) => dispatch(divisibleWord1Change(word)),
+  divisibleNumber2Change: (number: number) => dispatch(divisibleNumber2Change(number)),
+  divisibleWord2Change: (word: string) => dispatch(divisibleWord2Change(word)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Fizzbuzz)
