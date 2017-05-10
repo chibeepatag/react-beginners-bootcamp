@@ -79,6 +79,29 @@ export const fizzBuzzReset = () => ({
   type: 'fizzbuzzReset',
 })
 
+export const passwordInputChanged = (password: string) => ({
+  type: 'passwordInputChanged',
+  payload: password,
+})
+
+export const nameInputChanged = (name: string) => ({
+  type: 'nameInputChanged',
+  payload: name,
+})
+
+export const emailInputChanged = (email: string) => ({
+  type: 'emailInputChanged',
+  payload: email,
+})
+
+export const login = () => ({
+  type: 'login',
+})
+
+export const signup = () => ({
+  type: 'signup',
+})
+
 const randomNum = () => Math.floor(Math.random() * 100) + 1
 
 const initialState = {
@@ -102,6 +125,8 @@ const initialState = {
   emailInput: '',
   nameInput: '',
   passwordInput: '',
+  role: 'guest',
+  name: '',
 }
 
 const reducer = (state = initialState, action) => {
@@ -237,6 +262,49 @@ const reducer = (state = initialState, action) => {
         fizzbuzzDivisibleNumber2: 5,
         fizzbuzzDivisibleWord2: 'Buzz',
         fizzbuzzResult: [],
+      }
+    }
+
+    case 'login': {
+      const { nameInput, emailInput, passwordInput } = state
+      return {
+        ...state,
+        name: nameInput,
+        email: emailInput,
+        password: passwordInput,
+        role: 'user',
+      }
+    }
+
+    case 'signup': {
+      const { nameInput, emailInput, passwordInput } = state
+      return {
+        ...state,
+        name: nameInput,
+        email: emailInput,
+        password: passwordInput,
+        role: 'newUser',
+      }
+    }
+
+    case 'passwordInputChanged': {
+      return {
+        ...state,
+        passwordInput: action.payload,
+      }
+    }
+
+    case 'nameInputChanged': {
+      return {
+        ...state,
+        nameInput: action.payload,
+      }
+    }
+
+    case 'emailInputChanged': {
+      return {
+        ...state,
+        emailInput: action.payload,
       }
     }
 

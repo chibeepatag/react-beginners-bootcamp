@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { NavLink } from 'react-router-dom'
 
@@ -21,10 +22,14 @@ const Nav = ({ role, name }: Props) =>
       </nav>
       <div className="navbar-text navbar-right">
         {role === 'guest' && 'Hello, guest'}
-        {role === 'user' && `welcomeback, ${name}`}
-        {role === 'newUser' && `welcome aboard, ${name}`}
+        {role === 'user' && `Welcome back, ${name}`}
+        {role === 'newUser' && `Welcome aboard, ${name}`}
       </div>
     </div>
   </div>
 
-export default Nav
+const mapStateToProps = state => ({
+  role: state.role,
+  name: state.name,
+})
+export default connect(mapStateToProps)(Nav)
